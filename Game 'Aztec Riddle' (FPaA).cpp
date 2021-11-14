@@ -7,12 +7,31 @@
 
 HINSTANCE hInst;                                
 WCHAR szTitle[MAX_LOADSTRING];                  
-WCHAR szWindowClass[MAX_LOADSTRING];            
+WCHAR szWindowClass[MAX_LOADSTRING]; 
 
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
+
+//Initializing structures.
+struct Level L = {
+        4,
+        {
+            {0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0},
+        },
+        {0, 0},
+        {0, 0},
+        0,
+        0,
+        0,
+        0
+};
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -91,6 +110,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_CREATE:
+        SetTimer(hWnd, 1, 1500, NULL);
+        GenerateField(&L);
+        break;
+    case WM_TIMER:
+        Discharge(&L);
+        InvalidateRect(hWnd, NULL, TRUE);
+        break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -111,27 +138,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         switch (wParam)
         {
         case 0x57:
-            MoveUp();
+            MoveUp(&L);
             InvalidateRect(hWnd, NULL, TRUE);
             break;
         case 0x53:
-            MoveDown();
+            MoveDown(&L);
             InvalidateRect(hWnd, NULL, TRUE);
             break;
         case 0x44:
-            MoveToRight();
+            MoveToRight(&L);
             InvalidateRect(hWnd, NULL, TRUE);
             break;
         case 0x41:
-            MoveToLeft();
+            MoveToLeft(&L);
             InvalidateRect(hWnd, NULL, TRUE);
             break;
         case VK_RETURN:
-            Сonfirmation();
-            InvalidateRect(hWnd, NULL, TRUE);
-            break;
-        case VK_SHIFT:
-            Discharge();
+            Сonfirmation(&L);
             InvalidateRect(hWnd, NULL, TRUE);
             break;
         }
@@ -140,7 +163,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
            
-            GameFieldGraphics(hdc);
+            GameFieldGraphics(hdc, &L);
 
             EndPaint(hWnd, &ps);
         }

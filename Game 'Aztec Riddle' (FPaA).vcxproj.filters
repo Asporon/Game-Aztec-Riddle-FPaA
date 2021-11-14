@@ -35,7 +35,10 @@
     <ClCompile Include="Game %27Aztec Riddle%27 (FPaA).cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Block %27Logic and Graphics%27.cpp">
+    <ClCompile Include="Block %27Logic%27.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Block %27Graphics%27.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

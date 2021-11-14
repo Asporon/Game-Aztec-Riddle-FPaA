@@ -146,7 +146,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Block %27Logic and Graphics%27.cpp" />
+    <ClCompile Include="Block %27Graphics%27.cpp" />
+    <ClCompile Include="Block %27Logic%27.cpp" />
     <ClCompile Include="Game %27Aztec Riddle%27 (FPaA).cpp" />
   </ItemGroup>
   <ItemGroup>
